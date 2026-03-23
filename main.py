@@ -1,9 +1,33 @@
 import asyncio
 import json
+import logging
+import logging.config
+import os
+import sys
 
 import aiohttp
 from appcfg import get_config
 from prisma import Prisma
+
+env = os.getenv("ENV", "dev").lower()
+
+if env == "prod":
+    logging.config.fileConfig('logging-prod.conf')
+else:
+    logging.config.fileConfig('logging.conf')
+
+logger = logging.getLogger(__name__)
+
+def handle_exception(exc_type, exc_value, exc_traceback):
+    if issubclass(exc_type, KeyboardInterrupt):
+        # let Ctrl+C behave normally
+        sys.__excepthook__(exc_type, exc_value, exc_traceback)
+        return
+
+    logger.critical("Uncaught exception",
+                    exc_info=(exc_type, exc_value, exc_traceback))
+
+sys.excepthook = handle_exception
 
 GRAPH_URL = "https://api.vestaboard.com/graphql"
 TOKEN_URL = "https://vestaboard.auth0.com/oauth/token"
@@ -139,7 +163,7 @@ async def process_pick(db, item_pick) -> None:
             },
         )
 
-    print(f"{pick.pick_date} - Pick: {pick.id}, Message: {message.id}")
+    logger.info(f"{pick.pick_date} - Pick: {pick.id}, Message: {message.id}")
 
 def is_pattern(characters) -> bool:
     is_pattern = True
@@ -150,6 +174,11 @@ def is_pattern(characters) -> bool:
     return is_pattern
 
 async def main() -> None:
+
+    if config["refresh_token"] == "xxx":
+        logger.error("refresh token is not configured")
+        return
+
     db = Prisma()
     await db.connect()
 

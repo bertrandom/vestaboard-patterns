@@ -11,4 +11,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-appcfg = { git = "https://github.com/bertrandom/appcfg" }
+appcfg = { git = "https://github.com/bertrandom/appcfg", rev = "8c4970cbcabede7ea335682a20b9cd217b4ded72" }

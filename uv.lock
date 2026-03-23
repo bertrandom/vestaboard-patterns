@@ -134,7 +134,7 @@ wheels = [
 [[package]]
 name = "appcfg"
 version = "1.1.1"
-source = { git = "https://github.com/bertrandom/appcfg#8c4970cbcabede7ea335682a20b9cd217b4ded72" }
+source = { git = "https://github.com/bertrandom/appcfg?rev=8c4970cbcabede7ea335682a20b9cd217b4ded72#8c4970cbcabede7ea335682a20b9cd217b4ded72" }
 dependencies = [
     { name = "deepmerge" },
     { name = "json5" },
@@ -756,7 +756,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "aiohttp", specifier = ">=3.13.3" },
-    { name = "appcfg", git = "https://github.com/bertrandom/appcfg" },
+    { name = "appcfg", git = "https://github.com/bertrandom/appcfg?rev=8c4970cbcabede7ea335682a20b9cd217b4ded72" },
     { name = "prisma", specifier = ">=0.15.0" },
 ]
 

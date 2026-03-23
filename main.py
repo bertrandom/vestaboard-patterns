@@ -113,6 +113,30 @@ async def get_picks(token: str) -> list:
 
     return picks
 
+async def get_todays_picks(token: str) -> list:
+    payload = {
+        "operationName": "ListTodaysPicks",
+        "variables": {
+            "input": {
+                "boardStyle": "black"
+            }
+        },
+        "query": "query ListTodaysPicks($input: TodaysPicksInputV2) {\n  listTodaysPicks: listTodaysPicksV2(input: $input) {\n    picks {\n      id\n      attribution\n      created\n      date\n      likes\n      likeCount\n      isLikedByMe\n      mediumIcon: icon(size: Medium)\n      message {\n        id\n        characters\n        isFavorited\n        __typename\n      }\n      __typename\n    }\n    __typename\n  }\n}"
+    }
+
+    async with aiohttp.ClientSession() as session:
+        async with session.post(
+            GRAPH_URL,
+            headers=get_graph_request_headers(token),
+            json=payload,
+        ) as resp:
+            resp.raise_for_status()
+            body = await resp.json()
+
+    picks = body["data"]["listTodaysPicks"]["picks"]
+
+    return picks
+
 async def get_access_token(refresh_token: str, client_id: str) -> str:
     payload = {
         "grant_type": "refresh_token",
@@ -190,6 +214,10 @@ async def main() -> None:
     )
 
     access_token = await get_access_token(config["refresh_token"], config["client_id"])
+
+    todays_picks = await get_todays_picks(access_token)
+    for pick in todays_picks:
+        await process_pick(db, pick)
 
     picks = await get_picks(access_token)
 

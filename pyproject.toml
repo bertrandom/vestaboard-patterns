@@ -1,0 +1,14 @@
+[project]
+name = "vestaboard-patterns"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp>=3.13.3",
+    "appcfg",
+    "prisma>=0.15.0",
+]
+
+[tool.uv.sources]
+appcfg = { git = "https://github.com/bertrandom/appcfg" }

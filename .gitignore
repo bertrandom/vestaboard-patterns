@@ -1,0 +1,17 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+data/patterns.db
+data/patterns.db-shm
+data/patterns.db-wal
+
+config/development.json5
+config/prod.json5

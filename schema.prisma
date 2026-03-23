@@ -1,0 +1,26 @@
+datasource db {
+  // could be postgresql or mysql
+  provider = "sqlite"
+  url      = "file:data/patterns.db"
+}
+
+generator db {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = 5
+}
+
+model Pick {
+  id         String   @id @default(cuid())
+  pick_date  String
+  message    Message  @relation(fields: [message_id], references: [id])
+  message_id String
+
+  @@index([pick_date])
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  body       String
+  picks      Pick[]
+}

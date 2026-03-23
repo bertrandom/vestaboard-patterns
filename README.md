@@ -1,3 +1,8 @@
+ENV=dev uv run main.py
+
+## Vestaboard Pattern DB
+0 7 * * * cd /web/vestaboard-patterns && ENV=prod /home/bertrand/.local/bin/uv run main.py >> /dev/null 2>&1
+
 uv run prisma generate
 
 uv run prisma db push

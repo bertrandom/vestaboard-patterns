@@ -158,6 +158,8 @@ async def process_pick(db, item_pick) -> None:
     if not is_pattern(item_pick['message']['characters']):
         return
 
+    created = False
+
     message = await db.message.find_unique(
         where={
             'id': item_pick['message']['id']
@@ -171,6 +173,7 @@ async def process_pick(db, item_pick) -> None:
                 'body': json.dumps(item_pick['message']['characters'])
             },
         )
+        created = True
 
     pick = await db.pick.find_unique(
         where={
@@ -186,8 +189,10 @@ async def process_pick(db, item_pick) -> None:
                 'message_id': message.id
             },
         )
+        created = True
 
-    logger.info(f"{pick.pick_date} - Pick: {pick.id}, Message: {message.id}")
+    if created:
+        logger.info(f"{pick.pick_date} - Pick: {pick.id}, Message: {message.id}")
 
 def is_pattern(characters) -> bool:
     is_pattern = True

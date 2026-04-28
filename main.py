@@ -105,7 +105,14 @@ async def get_picks(token: str) -> list:
             resp.raise_for_status()
             body = await resp.json()
 
-    items = body["data"]["listInspirationV2"]["items"]
+    items = (
+        body.get("data", {})
+            .get("listInspirationV2", {})
+            .get("items", [])
+    )
+
+    if len(items) == 0:
+        logger.error("No items found in response", extra={"response": body})
 
     picks = []
     for item in items:

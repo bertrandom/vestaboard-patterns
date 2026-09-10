@@ -16,3 +16,25 @@ Load:
 
 sqlite-utils insert data/patterns.db Message data/seed/message.json
 sqlite-utils insert data/patterns.db Pick data/seed/pick.json
+
+Get a refresh token:
+
+```
+curl --url 'https://vestaboard.auth0.com/oauth/token' \
+  -H 'accept: */*' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'origin: https://web.vestaboard.com' \
+  -H 'pragma: no-cache' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://web.vestaboard.com/' \
+  -H 'sec-ch-ua: "Chromium";v="152", "Not?A_Brand";v="24", "Google Chrome";v="152"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36' \
+  --data-raw '{"client_id":"2h7PozmBi3wdH62adT1oIRdHwbcznzQc","grant_type":"http://auth0.com/oauth/grant-type/password-realm","username":"username@email.com","password":"password","audience":"https://vestaboard.auth0.com/api/v2/","scope":"offline_access openid profile email","realm":"Users"}'
+  ```

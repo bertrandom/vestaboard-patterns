@@ -8,6 +8,7 @@ dependencies = [
     "aiohttp>=3.13.3",
     "appcfg",
     "prisma>=0.15.0",
+    "sqlite-utils>=4.2.1",
 ]
 
 [tool.uv.sources]

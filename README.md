@@ -9,13 +9,13 @@ uv run prisma db push
 
 Dump:
 
-sqlite-utils data/patterns.db "SELECT * from Message" > data/seed/message.json
-sqlite-utils data/patterns.db "SELECT * from Pick" > data/seed/pick.json
+uv run sqlite-utils data/patterns.db "SELECT * from Message" > data/seed/message.json
+uv run sqlite-utils data/patterns.db "SELECT * from Pick" > data/seed/pick.json
 
 Load:
 
-sqlite-utils insert data/patterns.db Message data/seed/message.json
-sqlite-utils insert data/patterns.db Pick data/seed/pick.json
+uv run sqlite-utils insert data/patterns.db Message data/seed/message.json
+uv run sqlite-utils insert data/patterns.db Pick data/seed/pick.json
 
 Get a refresh token:
 

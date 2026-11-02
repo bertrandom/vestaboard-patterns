@@ -108,3 +108,7 @@ uv run sqlite-utils data/patterns.db "SELECT * from Message" > data/seed/message
 ```bash
 uv run sqlite-utils data/patterns.db "SELECT * from Pick" > data/seed/pick.json
 ```
+
+## License
+
+[MIT](LICENSE)
